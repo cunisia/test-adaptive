@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useReducer } from 'react';
 import './App.css';
+import styled from '@emotion/styled';
+import { MLViz } from './components/MLViz';
+import { Header } from './components/Header';
+import { reducer } from './store/reducer';
+
+const StyledApp = styled.div({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+})
 
 function App() {
+
+  // Init store
+  const [store, dispatch] = useReducer(reducer, { runNames: [], runColor: {}, runData: {}, subscriptions: {} });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledApp className="App">
+      <Header />
+      <MLViz store={store} dispatch={dispatch} />
+    </StyledApp>
   );
 }
 
