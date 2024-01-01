@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Action, Store } from "../store/reducer";
 import { RunPicker } from "./RunPicker";
-import { TokenLossChart } from "./TokenLossChart/TokenLossChart2";
+import { TokenLossChart } from "./TokenLossChart/TokenLossChart";
 
 const Wrapper = styled.div({
   display: 'flex',
