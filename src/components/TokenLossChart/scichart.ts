@@ -13,7 +13,8 @@ import {
   RolloverModifier,
   MouseWheelZoomModifier,
   ZoomExtentsModifier,
-  ZoomPanModifier
+  ZoomPanModifier,
+  EXyDirection
 } from "scichart";
 import { Store } from "../../store/reducer";
 
@@ -28,17 +29,17 @@ export const initSciChart = async ({runNames, runColor}: Pick<Store, 'runNames' 
   const { sciChartSurface, wasmContext } = await SciChartSurface.create("scichart-root", {
     theme: new SciChartJSLightTheme(),
     title: "Token Loss Chart",
-    titleStyle: { fontSize: 22 }
+    titleStyle: { fontSize: 16 }
   });
 
   // Create an XAxis and YAxis with growBy padding
   const growBy = new NumberRange(0.1, 0.1);
-  sciChartSurface.xAxes.add(new NumericAxis(wasmContext, { axisTitle: "Tokens", growBy, labelFormat: ENumericFormat.Exponential }));
-  sciChartSurface.yAxes.add(new NumericAxis(wasmContext, { axisTitle: "Losses", growBy }));
+  sciChartSurface.xAxes.add(new NumericAxis(wasmContext, { axisTitle: "Tokens", axisTitleStyle: { fontSize: 16 }, growBy, labelFormat: ENumericFormat.Exponential }));
+  sciChartSurface.yAxes.add(new NumericAxis(wasmContext, { axisTitle: "Losses", axisTitleStyle: { fontSize: 16 }, growBy }));
 
   // Add chart modifers
   const legendModifier = new  LegendModifier({placement: ELegendPlacement.TopRight})
-  const tooltipModifier = new RolloverModifier();
+  const tooltipModifier = new RolloverModifier({snapToDataPoint: true, showAxisLabel: true, xyDirection: EXyDirection.XyDirection});
   const mouseWheelZoomModifier = new MouseWheelZoomModifier();
   const zoomPanModifier = new ZoomPanModifier();   
   const zoomExtentsModifier = new ZoomExtentsModifier();   
@@ -64,5 +65,5 @@ export const initSciChart = async ({runNames, runColor}: Pick<Store, 'runNames' 
     }));
   })
 
-  return sciChartSurface;
+  return {sciChartSurface, wasmContext};
 }
