@@ -27,7 +27,7 @@ Don't forget to run backend first !
 
 - React is used as a component library, project was built using [create react app](https://create-react-app.dev/)
 - Theming is done using [emotion](https://emotion.sh/docs/introduction) 
-- Subscribing to data update for each run is done manually. 
+- Subscribing to data update for each run is done manually using polling. 
 - Chart is drawn using the lib [scichart](https://www.scichart.com/javascript-chart-features/) which uses WebGL & WebAssembly to render charts, making it very efficient to plot charts with big data series. 
 
 ## Improvements made on the backend
@@ -35,11 +35,19 @@ Don't forget to run backend first !
 - By default, the provided backend did not accept queries from other domain name, thus making it impossible to query from an auto served web application. Web application being served by the business backend is not such a popular pattern those days. So I had to change that using tower_http's CorsLayer. 
 - The endpoint `run` was returning absolutely all its available data. Thus, models others than gpt_small would take forever to load it's first batch of data points (more than 1 minute for gpt_3b, with a payload of 12Mo). It was making testing hard, and more generally, was not ideal in term of user experience. I took the liberty to cap the amount of data points to 1000 data points in order to fix that.
 
+## Time spent 
+
+I clearly went beyond the suggested time budget : I took me about 14h (2h per day) to reach the current result. I would say that it would be quite hard to achieve some showable result in only 4 hours. Having some working home made data update subscription mechanism was time consuming. Discovering the scichart lib as too. Since I had already consumed quite some time to get the minimum pieces in place I decided to go further and implement some bonus features.
+
 # Possible improvements 
 
 ## Use a proper data store 
 
 Currently, the datastore is just some state at root level updated using a reducer. This store is passed as a parameter from root component to sub components. If we wanted to professionalize this product, we should use a proper datastore (such as Redux for instance) accessible from anywhere without having to pass it manually. 
+
+## Use some tooling to get data update
+
+Subscriptions to data update is done manually, yet there are some good library that would do that for you. Since, the most reasonable choice would be to use a websocket instead of some old school polling, I decided to go with a custom solution. But if this project was to be professionalized I would suggest to change the backend to use websocket.
 
 ## Use a code formatter
 
