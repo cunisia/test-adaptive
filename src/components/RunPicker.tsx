@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useGetMoreData } from "../hooks/useGetMoreData"
 import { Action, Store } from "../store/reducer"
 import { Spinner } from "./Spinner"

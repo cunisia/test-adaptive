@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { useState, useRef, useCallback, useMemo } from "react";
-import { color } from "../../../tokens";
 import { AxisRange } from "../../../types";
 
 const StyledWrapper = styled.div({

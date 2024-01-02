@@ -33,16 +33,17 @@ Don't forget to run backend first !
 ## Improvements made on the backend
 
 - By default, the provided backend did not accept queries from other domain name, thus making it impossible to query from an auto served web application. Web application being served by the business backend is not such a popular pattern those days. So I had to change that using tower_http's CorsLayer. 
-- The endpoint `run` was returning absolutely all its available data. Thus, models others than gpt_small would take forever to load it's first batch of data points (more than 1 minute for gpt_3b, with a payload of 12Mo). It was making testing hard, and more generally, was not ideal in term of user experience. I took the liberty to cap the amount of data points to 1000 data points in order to fix that. 
+- The endpoint `run` was returning absolutely all its available data. Thus, models others than gpt_small would take forever to load it's first batch of data points (more than 1 minute for gpt_3b, with a payload of 12Mo). It was making testing hard, and more generally, was not ideal in term of user experience. I took the liberty to cap the amount of data points to 1000 data points in order to fix that.
+
 # Possible improvements 
 
 ## Use a proper data store 
 
 Currently, the datastore is just some state at root level updated using a reducer. This store is passed as a parameter from root component to sub components. If we wanted to professionalize this product, we should use a proper datastore (such as Redux for instance) accessible from anywhere without having to pass it manually. 
 
-## Use a linter
+## Use a code formatter
 
-In order to make the code consistent from one file to another and make sure that conventions are shared by the whole team, it'd be best to use and parametrize a linter. I was into kind of a rush which prevented me from setting it.  
+In order to make the code consistent from one file to another and make sure that conventions are shared by the whole team, it'd be best to use and parametrize a code formatter such as prettier. I was into kind of a rush which prevented me from setting it.  
 
 ## Implement additional bonus features 
 
